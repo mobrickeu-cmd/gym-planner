@@ -99,10 +99,16 @@
   padding: 10px 5px;
   font-size: 0.8rem;
   text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
+
+.short-day {
+  display: none;
+}
+
+.full-day {
+  display: inline;
+}
+
 
 .calendar-day {
   aspect-ratio: 1;
@@ -191,65 +197,71 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
+.calendar-day.status-high {
+  border-color: #4caf50;
+}
+
+.calendar-day.status-medium {
+  border-color: #ffeb3b;
+}
+
+.calendar-day.status-low {
+  border-color: #ff9800;
+}
+
 @media (max-width: 768px) {
   .calendar-container {
-    padding: 10px;
+    padding: 10px 5px;
   }
 
   .month-title {
-    font-size: 1.5rem;
-  }
-
-  .nav-button {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
   }
 
   .calendar-body {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 20px;
-    /* Custom scrollbar styling */
-    scrollbar-width: thin;
-    scrollbar-color: #667eea #1a1a1a;
-  }
-
-  .calendar-body::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .calendar-body::-webkit-scrollbar-track {
-    background: #1a1a1a;
-  }
-
-  .calendar-body::-webkit-scrollbar-thumb {
-    background-color: #667eea;
-    border-radius: 10px;
+    overflow-x: hidden;
+    /* Remove scroll, we want them to fit */
+    padding-bottom: 10px;
   }
 
   .calendar-grid {
-    /* Each column is roughly 1/3 of the container width minus gaps */
-    grid-template-columns: repeat(7, calc((100vw - 60px) / 3));
-    width: max-content;
-    gap: 8px;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    gap: 4px;
+    padding: 0;
+  }
+
+  .weekday-header {
+    padding: 5px 0;
+    font-size: 0.75rem;
+  }
+
+  .short-day {
+    display: inline;
+  }
+
+  .full-day {
+    display: none;
   }
 
   .calendar-day {
-    padding: 8px;
+    padding: 4px 1px;
+    height: auto;
+    min-height: 45px;
+    border-radius: 4px;
+    border-width: 1px;
   }
 
   .day-number {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
   }
 
-  .availability-percentage,
   .reservation-indicator {
-    font-size: 0.6rem;
-  }
-
-  .quick-month-btn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
+    font-size: 0.5rem;
+    line-height: 1;
+    margin-top: 2px;
   }
 
   .quick-months {
@@ -259,7 +271,6 @@
     width: 100%;
   }
 
-  /* Make the middle button (current month) span both columns */
   .quick-month-btn:nth-child(3) {
     grid-column: span 2;
   }
@@ -267,13 +278,5 @@
   .quick-month-btn {
     padding: 10px 5px;
     font-size: 0.85rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 0;
-    font-weight: 500;
   }
 }

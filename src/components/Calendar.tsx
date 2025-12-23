@@ -204,7 +204,8 @@ const Calendar: React.FC = () => {
         <div className="calendar-grid">
           {weekDays.map((day) => (
             <div key={day} className="weekday-header">
-              {day}
+              <span className="full-day">{day}</span>
+              <span className="short-day">{day.substring(0, 3)}</span>
             </div>
           ))}
 
@@ -225,11 +226,27 @@ const Calendar: React.FC = () => {
             const emptySlotsCount = allSlots.filter(slot => !occupiedSlots.has(slot)).length;
             const availabilityPercentage = Math.round((emptySlotsCount / allSlots.length) * 100);
 
+            const statusClass = availabilityPercentage > 75
+              ? 'status-high'
+              : availabilityPercentage >= 40
+                ? 'status-medium'
+                : 'status-low';
+
+            // Fill from top to bottom means vertical gradient
+            // We'll use a color depending on the status
+            const fillColor = availabilityPercentage > 75
+              ? 'rgba(76, 175, 80, 0.2)'
+              : availabilityPercentage >= 40
+                ? 'rgba(255, 235, 59, 0.2)'
+                : 'rgba(255, 152, 0, 0.2)';
+
             return (
               <div
                 key={index}
-                className={`calendar-day ${isPast ? 'past' : ''} ${isCurrentDay ? 'today' : ''} ${hasReservations ? 'has-reservations' : ''
-                  }`}
+                className={`calendar-day ${isPast ? 'past' : ''} ${isCurrentDay ? 'today' : ''} ${hasReservations ? 'has-reservations' : ''} ${statusClass}`}
+                style={{
+                  background: isPast ? undefined : `linear-gradient(to bottom, ${fillColor} ${availabilityPercentage}%, transparent ${availabilityPercentage}%)`
+                }}
                 onClick={() => {
                   if (isPast) {
                     if (hasReservations) {
@@ -242,9 +259,6 @@ const Calendar: React.FC = () => {
                 onDoubleClick={() => hasReservations && handleViewReservations(dateStr)}
               >
                 <div className="day-number">{day}</div>
-                <div className="availability-percentage" title={t('availableSlots')}>
-                  {availabilityPercentage}% {t('availableSlots')}
-                </div>
                 {hasReservations && (
                   <div className="reservation-indicator">
                     {reservations.length} {reservations.length === 1 ? t('booking') : t('bookings')}
