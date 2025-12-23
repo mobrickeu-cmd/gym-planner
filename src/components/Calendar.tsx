@@ -132,15 +132,7 @@ const Calendar: React.FC = () => {
     }
   };
 
-  const triggerMonthPicker = () => {
-    if (monthInputRef.current) {
-      try {
-        monthInputRef.current.showPicker();
-      } catch (e) {
-        monthInputRef.current.click();
-      }
-    }
-  };
+
 
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
   const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
@@ -170,18 +162,24 @@ const Calendar: React.FC = () => {
     <div className="calendar-container">
       <div className="calendar-header">
         <div className="month-navigation">
-          <h2 className="month-title clickable" onClick={triggerMonthPicker} title={t('selectAnyMonth')}>
-            {getMonthYearString(currentYear, currentMonth, language)}
-          </h2>
-          <input
-            ref={monthInputRef}
-            type="month"
-            className="hidden-month-picker"
-            onChange={handleMonthInputChange}
-            min={`${getMinDate().year}-${String(getMinDate().month + 1).padStart(2, '0')}`}
-            max={`${maxYear}-12`}
-            value={`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`}
-          />
+          <label htmlFor="month-picker-input" className="month-picker-label">
+            <h2 className="month-title clickable" title={t('selectAnyMonth')}>
+              {t('calendar')}
+            </h2>
+            <div className="current-month-display">
+              {getMonthYearString(currentYear, currentMonth, language)}
+            </div>
+            <input
+              id="month-picker-input"
+              ref={monthInputRef}
+              type="month"
+              className="hidden-month-picker"
+              onChange={handleMonthInputChange}
+              min={`${getMinDate().year}-${String(getMinDate().month + 1).padStart(2, '0')}`}
+              max={`${maxYear}-12`}
+              value={`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`}
+            />
+          </label>
         </div>
 
         <div className="month-selector">

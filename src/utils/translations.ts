@@ -16,6 +16,7 @@ export interface Translations {
   previous: string;
   next: string;
   selectAnyMonth: string;
+  calendar: string;
   current: string;
   bookings: string;
   booking: string;
@@ -117,6 +118,7 @@ export const translations: Record<Language, Translations> = {
     previous: 'Anterior',
     next: 'Următor',
     selectAnyMonth: 'Selectează Orice Lună',
+    calendar: 'Calendar',
     current: 'Curent',
     bookings: 'rezervări',
     booking: 'rezervare',
@@ -206,6 +208,7 @@ export const translations: Record<Language, Translations> = {
     previous: 'Previous',
     next: 'Next',
     selectAnyMonth: 'Select Any Month',
+    calendar: 'Calendar',
     current: 'Current',
     bookings: 'bookings',
     booking: 'booking',
