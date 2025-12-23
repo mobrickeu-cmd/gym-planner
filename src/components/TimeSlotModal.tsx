@@ -160,32 +160,35 @@ const TimeSlotModal: React.FC<TimeSlotModalProps> = ({ date, onClose }) => {
           )}
 
           {selectedSlot && (
-            <div className="description-section">
-              <label htmlFor="description" className="description-label">
-                {t('description')}
-              </label>
-              <textarea
-                id="description"
-                className="description-input"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder={t('descriptionPlaceholder')}
-                rows={4}
-              />
-            </div>
+            <>
+              <div className="reservation-actions">
+                <button className="cancel-button" onClick={handleClose}>
+                  {t('cancel')}
+                </button>
+                <button
+                  className="confirm-button"
+                  onClick={handleReservation}
+                  disabled={!selectedSlot || !canMakeReservation}
+                >
+                  {t('confirmReservation')}
+                </button>
+              </div>
+
+              <div className="description-section">
+                <label htmlFor="description" className="description-label">
+                  {t('description')}
+                </label>
+                <textarea
+                  id="description"
+                  className="description-input"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder={t('descriptionPlaceholder')}
+                  rows={2}
+                />
+              </div>
+            </>
           )}
-        </div>
-        <div className="modal-footer">
-          <button className="cancel-button" onClick={handleClose}>
-            {t('cancel')}
-          </button>
-          <button
-            className="confirm-button"
-            onClick={handleReservation}
-            disabled={!selectedSlot || !canMakeReservation}
-          >
-            {t('confirmReservation')}
-          </button>
         </div>
       </div>
     </div>

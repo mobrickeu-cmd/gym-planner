@@ -40,6 +40,24 @@
   line-height: 1;
 }
 
+.selected-month-tag {
+  font-size: 1.2rem;
+  color: #667eea;
+  font-weight: 600;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .selected-month-tag {
+    font-size: 0.9rem;
+    margin-left: 5px;
+    display: block;
+    /* On mobile, move it to its own line if needed, or keep it inline */
+    margin-top: 5px;
+  }
+}
+
 .current-month-display {
   font-size: 1.1rem;
   color: #667eea;

@@ -158,17 +158,18 @@ const Calendar: React.FC = () => {
     t('sunday')
   ];
 
+  const isQuickMonth = getQuickMonthOptions().some(
+    option => option.year === currentYear && option.month === currentMonth
+  );
+
   return (
     <div className="calendar-container">
       <div className="calendar-header">
         <div className="month-navigation">
           <label htmlFor="month-picker-input" className="month-picker-label">
             <h2 className="month-title clickable" title={t('selectAnyMonth')}>
-              {t('calendar')}
+              {t('calendar')} {!isQuickMonth && <span className="selected-month-tag">({getMonthYearString(currentYear, currentMonth, language)})</span>}
             </h2>
-            <div className="current-month-display">
-              {getMonthYearString(currentYear, currentMonth, language)}
-            </div>
             <input
               id="month-picker-input"
               ref={monthInputRef}
@@ -243,7 +244,7 @@ const Calendar: React.FC = () => {
                 key={index}
                 className={`calendar-day ${isPast ? 'past' : ''} ${isCurrentDay ? 'today' : ''} ${hasReservations ? 'has-reservations' : ''} ${statusClass}`}
                 style={{
-                  background: isPast ? undefined : `linear-gradient(to bottom, ${fillColor} ${availabilityPercentage}%, transparent ${availabilityPercentage}%)`
+                  background: isPast ? undefined : `linear-gradient(to top, ${fillColor} ${availabilityPercentage}%, transparent ${availabilityPercentage}%)`
                 }}
                 onClick={() => {
                   if (isPast) {
