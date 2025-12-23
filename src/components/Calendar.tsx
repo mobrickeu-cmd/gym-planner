@@ -193,7 +193,15 @@ const Calendar: React.FC = () => {
     days.push(day);
   }
 
-  const weekDays = ['Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm', 'Dum'];
+  const weekDays = [
+    t('monday'),
+    t('tuesday'),
+    t('wednesday'),
+    t('thursday'),
+    t('friday'),
+    t('saturday'),
+    t('sunday')
+  ];
 
   return (
     <div className="calendar-container">
@@ -234,58 +242,60 @@ const Calendar: React.FC = () => {
         </div>
       </div>
 
-      <div className="calendar-grid">
-        {weekDays.map((day) => (
-          <div key={day} className="weekday-header">
-            {day}
-          </div>
-        ))}
-
-        {days.map((day, index) => {
-          if (day === null) {
-            return <div key={index} className="calendar-day empty"></div>;
-          }
-
-          const dateStr = formatDate(currentYear, currentMonth, day);
-          const reservations = getReservationsByDate(dateStr);
-          const isPast = isPastDate(currentYear, currentMonth, day);
-          const isCurrentDay = isToday(currentYear, currentMonth, day);
-          const hasReservations = reservations.length > 0;
-
-          // Calculate availability percentage (hours without any reservations)
-          const allSlots = generateTimeSlots(timeRangeSettings.startHour, timeRangeSettings.endHour);
-          const occupiedSlots = new Set(reservations.map(r => r.timeSlot));
-          const emptySlotsCount = allSlots.filter(slot => !occupiedSlots.has(slot)).length;
-          const availabilityPercentage = Math.round((emptySlotsCount / allSlots.length) * 100);
-
-          return (
-            <div
-              key={index}
-              className={`calendar-day ${isPast ? 'past' : ''} ${isCurrentDay ? 'today' : ''} ${hasReservations ? 'has-reservations' : ''
-                }`}
-              onClick={() => {
-                if (isPast) {
-                  if (hasReservations) {
-                    handleViewReservations(dateStr);
-                  }
-                  return;
-                }
-                handleDayClick(day);
-              }}
-              onDoubleClick={() => hasReservations && handleViewReservations(dateStr)}
-            >
-              <div className="day-number">{day}</div>
-              <div className="availability-percentage" title={t('availableSlots' as any)}>
-                {availabilityPercentage}% {t('availableSlots' as any)}
-              </div>
-              {hasReservations && (
-                <div className="reservation-indicator">
-                  {reservations.length} {reservations.length === 1 ? t('booking') : t('bookings')}
-                </div>
-              )}
+      <div className="calendar-body">
+        <div className="calendar-grid">
+          {weekDays.map((day) => (
+            <div key={day} className="weekday-header">
+              {day}
             </div>
-          );
-        })}
+          ))}
+
+          {days.map((day, index) => {
+            if (day === null) {
+              return <div key={index} className="calendar-day empty"></div>;
+            }
+
+            const dateStr = formatDate(currentYear, currentMonth, day);
+            const reservations = getReservationsByDate(dateStr);
+            const isPast = isPastDate(currentYear, currentMonth, day);
+            const isCurrentDay = isToday(currentYear, currentMonth, day);
+            const hasReservations = reservations.length > 0;
+
+            // Calculate availability percentage (hours without any reservations)
+            const allSlots = generateTimeSlots(timeRangeSettings.startHour, timeRangeSettings.endHour);
+            const occupiedSlots = new Set(reservations.map(r => r.timeSlot));
+            const emptySlotsCount = allSlots.filter(slot => !occupiedSlots.has(slot)).length;
+            const availabilityPercentage = Math.round((emptySlotsCount / allSlots.length) * 100);
+
+            return (
+              <div
+                key={index}
+                className={`calendar-day ${isPast ? 'past' : ''} ${isCurrentDay ? 'today' : ''} ${hasReservations ? 'has-reservations' : ''
+                  }`}
+                onClick={() => {
+                  if (isPast) {
+                    if (hasReservations) {
+                      handleViewReservations(dateStr);
+                    }
+                    return;
+                  }
+                  handleDayClick(day);
+                }}
+                onDoubleClick={() => hasReservations && handleViewReservations(dateStr)}
+              >
+                <div className="day-number">{day}</div>
+                <div className="availability-percentage" title={t('availableSlots')}>
+                  {availabilityPercentage}% {t('availableSlots')}
+                </div>
+                {hasReservations && (
+                  <div className="reservation-indicator">
+                    {reservations.length} {reservations.length === 1 ? t('booking') : t('bookings')}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {showTimeSlots && selectedDate && (

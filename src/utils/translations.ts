@@ -21,6 +21,13 @@ export interface Translations {
   booking: string;
   yourBooking: string;
   availableSlots: string;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
 
   // Customer Setup
   customerSetup: string;
@@ -115,6 +122,13 @@ export const translations: Record<Language, Translations> = {
     booking: 'rezervare',
     yourBooking: 'rezervarea ta',
     availableSlots: 'liber',
+    monday: 'Luni',
+    tuesday: 'Marți',
+    wednesday: 'Miercuri',
+    thursday: 'Joi',
+    friday: 'Vineri',
+    saturday: 'Sâmbătă',
+    sunday: 'Duminică',
     customerSetup: 'Configurare Client',
     updateCustomerInfo: 'Actualizare Informații Client',
     name: 'Nume',
@@ -197,6 +211,13 @@ export const translations: Record<Language, Translations> = {
     booking: 'booking',
     yourBooking: 'your booking',
     availableSlots: 'available',
+    monday: 'Monday',
+    tuesday: 'Tuesday',
+    wednesday: 'Wednesday',
+    thursday: 'Thursday',
+    friday: 'Friday',
+    saturday: 'Saturday',
+    sunday: 'Sunday',
     customerSetup: 'Customer Setup',
     updateCustomerInfo: 'Update Customer Info',
     name: 'Name',

@@ -106,8 +106,12 @@
   text-align: center;
   font-weight: 700;
   color: #667eea;
-  padding: 10px;
-  font-size: 0.9rem;
+  padding: 10px 5px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .calendar-day {
@@ -195,4 +199,66 @@
 .calendar-day.past .availability-percentage {
   color: #666;
   background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 10px;
+  }
+
+  .month-title {
+    font-size: 1.5rem;
+  }
+
+  .nav-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .calendar-body {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+    /* Custom scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: #667eea #1a1a1a;
+  }
+
+  .calendar-body::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .calendar-body::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+
+  .calendar-body::-webkit-scrollbar-thumb {
+    background-color: #667eea;
+    border-radius: 10px;
+  }
+
+  .calendar-grid {
+    /* Each column is roughly 1/3 of the container width minus gaps */
+    grid-template-columns: repeat(7, calc((100vw - 60px) / 3));
+    width: max-content;
+    gap: 8px;
+  }
+
+  .calendar-day {
+    padding: 8px;
+  }
+
+  .day-number {
+    font-size: 1rem;
+  }
+
+  .availability-percentage,
+  .reservation-indicator {
+    font-size: 0.6rem;
+  }
+
+  .quick-month-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
 }
