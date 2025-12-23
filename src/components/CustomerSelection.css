@@ -1,0 +1,100 @@
+.customer-selection {
+    padding: 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.selection-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.selection-container h2 {
+    margin-bottom: 30px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.customer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.customer-select-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    color: white;
+}
+
+.customer-select-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(74, 144, 226, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.customer-avatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #4a90e2, #67b26f);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.customer-info-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.customer-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.customer-sessions-count {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.premium-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+}
+
+.no-customers-notice {
+    padding: 40px;
+    color: #777;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

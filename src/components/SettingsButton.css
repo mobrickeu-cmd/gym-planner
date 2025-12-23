@@ -1,0 +1,138 @@
+.settings-cog-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  cursor: pointer;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.settings-cog-button:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.settings-panel {
+  background: #1a1a1a;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  border: 1px solid #2d2d2d;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 2px solid #2d2d2d;
+  position: sticky;
+  top: 0;
+  background: #1a1a1a;
+  z-index: 10;
+}
+
+.settings-panel-header h2 {
+  margin: 0;
+  color: #e0e0e0;
+  font-size: 1.8rem;
+}
+
+.settings-close-button {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #b0b0b0;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.settings-close-button:hover {
+  color: #e0e0e0;
+  background: #2d2d2d;
+}
+
+.settings-panel-content {
+  padding: 20px 30px;
+}
+
+/* Override TrainerSettings styles when in modal */
+.settings-panel-content .trainer-settings {
+  padding: 0;
+  max-width: 100%;
+}
+
+.settings-panel-content .settings-container {
+  box-shadow: none;
+  border: none;
+  padding: 0;
+}
+
+.settings-panel-content .settings-container h2 {
+  display: none;
+}
+
+.settings-panel-content .settings-description {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .settings-cog-button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .settings-panel {
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .settings-panel-header {
+    padding: 15px 20px;
+  }
+
+  .settings-panel-content {
+    padding: 15px 20px;
+  }
+}
