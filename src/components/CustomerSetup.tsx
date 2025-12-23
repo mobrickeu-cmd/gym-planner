@@ -19,7 +19,7 @@ const CustomerSetup: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || formData.age === undefined || formData.weight === undefined || formData.sessions === undefined) {
       showNotification(t('fillAllFields'), 'error');
       return;
@@ -64,8 +64,10 @@ const CustomerSetup: React.FC = () => {
               type="number"
               id="age"
               step="0.1"
-              value={formData.age}
+              value={formData.age === 0 ? '' : formData.age}
               onChange={(e) => setFormData({ ...formData, age: parseFloat(e.target.value) || 0 })}
+              onFocus={(e) => e.target.select()}
+              placeholder="0"
               required
             />
           </div>
@@ -76,8 +78,10 @@ const CustomerSetup: React.FC = () => {
               type="number"
               id="weight"
               step="0.1"
-              value={formData.weight}
+              value={formData.weight === 0 ? '' : formData.weight}
               onChange={(e) => setFormData({ ...formData, weight: parseFloat(e.target.value) || 0 })}
+              onFocus={(e) => e.target.select()}
+              placeholder="0"
               required
             />
           </div>
@@ -88,8 +92,10 @@ const CustomerSetup: React.FC = () => {
               type="number"
               id="sessions"
               step="0.1"
-              value={formData.sessions}
+              value={formData.sessions === 0 ? '' : formData.sessions}
               onChange={(e) => setFormData({ ...formData, sessions: parseFloat(e.target.value) || 0 })}
+              onFocus={(e) => e.target.select()}
+              placeholder="0"
               required
             />
           </div>

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useLanguage } from './LanguageContext';
 
 export type NotificationType = 'success' | 'error' | 'info';
 
@@ -53,19 +54,11 @@ const NotificationItem: React.FC<{
   onClose: () => void;
   style?: React.CSSProperties;
 }> = ({ notification, onClose, style }) => {
-  // Use dynamic import to avoid circular dependency
-  let t: (key: string) => string = (key: string) => key;
-  try {
-    const { useLanguage } = require('./LanguageContext');
-    const languageHook = useLanguage();
-    t = languageHook.t;
-  } catch (e) {
-    // Fallback if language context is not available
-  }
+  const { t } = useLanguage();
 
   return (
-    <div 
-      className={`notification notification-${notification.type}`} 
+    <div
+      className={`notification notification-${notification.type}`}
       onClick={onClose}
       style={style}
     >
@@ -76,12 +69,12 @@ const NotificationItem: React.FC<{
           {notification.type === 'info' && 'ℹ'}
         </span>
         <span className="notification-message">{notification.message}</span>
-        <button 
-          className="notification-close" 
+        <button
+          className="notification-close"
           onClick={(e) => {
             e.stopPropagation();
             onClose();
-          }} 
+          }}
           aria-label={t('close')}
         >
           ×
@@ -98,4 +91,3 @@ export const useNotification = () => {
   }
   return context;
 };
-

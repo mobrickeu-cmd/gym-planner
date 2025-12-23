@@ -45,7 +45,20 @@
   font-size: 2rem;
   color: #e0e0e0;
   font-weight: 700;
+  transition: all 0.3s;
 }
+
+.month-title.clickable {
+  cursor: pointer;
+  border-bottom: 2px border transparent;
+}
+
+.month-title.clickable:hover {
+  color: #667eea;
+  text-decoration: underline;
+  transform: scale(1.02);
+}
+
 
 .month-selector {
   display: flex;
@@ -82,24 +95,6 @@
   border-color: #667eea;
 }
 
-.any-month-btn {
-  padding: 10px 20px;
-  background: #667eea;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  align-self: center;
-}
-
-.any-month-btn:hover {
-  background: #764ba2;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
 
 .calendar-grid {
   display: grid;

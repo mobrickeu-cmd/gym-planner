@@ -89,24 +89,30 @@ const CustomerManagement: React.FC = () => {
                         <label>{t('age')}</label>
                         <input
                             type="number"
-                            value={formData.age}
+                            value={formData.age === 0 ? '' : formData.age}
                             onChange={(e) => setFormData({ ...formData, age: parseInt(e.target.value) || 0 })}
+                            onFocus={(e) => e.target.select()}
+                            placeholder="0"
                         />
                     </div>
                     <div className="form-group">
                         <label>{t('weight')} ({t('weightUnit')})</label>
                         <input
                             type="number"
-                            value={formData.weight}
+                            value={formData.weight === 0 ? '' : formData.weight}
                             onChange={(e) => setFormData({ ...formData, weight: parseFloat(e.target.value) || 0 })}
+                            onFocus={(e) => e.target.select()}
+                            placeholder="0"
                         />
                     </div>
                     <div className="form-group">
                         <label>{t('numberOfSessions')}</label>
                         <input
                             type="number"
-                            value={formData.sessions}
+                            value={formData.sessions === 0 ? '' : formData.sessions}
                             onChange={(e) => setFormData({ ...formData, sessions: parseFloat(e.target.value) || 0 })}
+                            onFocus={(e) => e.target.select()}
+                            placeholder="0"
                         />
                     </div>
                 </div>

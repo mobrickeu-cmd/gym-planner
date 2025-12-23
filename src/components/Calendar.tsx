@@ -193,7 +193,7 @@ const Calendar: React.FC = () => {
     days.push(day);
   }
 
-  const weekDays = ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'];
+  const weekDays = ['Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm', 'Dum'];
 
   return (
     <div className="calendar-container">
@@ -206,7 +206,9 @@ const Calendar: React.FC = () => {
           >
             ← {t('previous')}
           </button>
-          <h2 className="month-title">{getMonthYearString(currentYear, currentMonth, language)}</h2>
+          <h2 className="month-title clickable" onClick={handleAnyMonthSelect} title={t('selectAnyMonth')}>
+            {getMonthYearString(currentYear, currentMonth, language)}
+          </h2>
           <button
             onClick={handleNextMonth}
             disabled={currentYear === maxYear && currentMonth === 11}
@@ -229,9 +231,6 @@ const Calendar: React.FC = () => {
               </button>
             ))}
           </div>
-          <button onClick={handleAnyMonthSelect} className="any-month-btn">
-            {t('selectAnyMonth')}
-          </button>
         </div>
       </div>
 

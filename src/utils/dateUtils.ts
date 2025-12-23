@@ -3,7 +3,9 @@ export const getDaysInMonth = (year: number, month: number): number => {
 };
 
 export const getFirstDayOfMonth = (year: number, month: number): number => {
-  return new Date(year, month, 1).getDay();
+  const day = new Date(year, month, 1).getDay();
+  // Adjust so Monday is 0, Tuesday is 1, ..., Sunday is 6
+  return day === 0 ? 6 : day - 1;
 };
 
 export const formatDate = (year: number, month: number, day: number): string => {
@@ -62,32 +64,32 @@ export const isValidDateRange = (year: number, month: number): boolean => {
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth();
   const maxYear = 2030;
-  
+
   // Calculate the minimum date (3 months ago)
   const minDate = new Date(currentYear, currentMonth - 3, 1);
   const minYear = minDate.getFullYear();
   const minMonth = minDate.getMonth();
-  
+
   // Check if year is before minimum
   if (year < minYear) {
     return false;
   }
-  
+
   // Check if year is after maximum
   if (year > maxYear) {
     return false;
   }
-  
+
   // Check if it's the minimum year and month is before minimum month
   if (year === minYear && month < minMonth) {
     return false;
   }
-  
+
   // Check if it's the maximum year and month is after December (11)
   if (year === maxYear && month > 11) {
     return false;
   }
-  
+
   return true;
 };
 
