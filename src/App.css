@@ -101,7 +101,7 @@
 .calendar-section {
   background: #1a1a1a;
   border-radius: 12px;
-  padding: 20px;
+  padding: 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   border: 1px solid #2d2d2d;
 }
