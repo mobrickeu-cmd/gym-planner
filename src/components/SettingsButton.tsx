@@ -5,13 +5,18 @@ import TrainerSettings from './TrainerSettings';
 import './SettingsButton.css';
 
 const SettingsButton: React.FC = () => {
-  const { userRole } = useApp();
+  const { userRole, setUserRole } = useApp();
   const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
-  if (userRole !== 'trainer') {
+  if (!userRole) {
     return null;
   }
+
+  const handleLogout = () => {
+    setUserRole(null);
+    window.location.reload();
+  };
 
   return (
     <>
@@ -22,7 +27,7 @@ const SettingsButton: React.FC = () => {
       >
         ⚙️
       </button>
-      
+
       {isOpen && (
         <div className="settings-overlay" onClick={() => setIsOpen(false)}>
           <div className="settings-panel" onClick={(e) => e.stopPropagation()}>
@@ -37,7 +42,19 @@ const SettingsButton: React.FC = () => {
               </button>
             </div>
             <div className="settings-panel-content">
-              <TrainerSettings />
+              {userRole === 'trainer' ? (
+                <TrainerSettings />
+              ) : (
+                <div className="customer-settings-simple">
+                  <p className="settings-instruction">Mobrick Gym Planner Settings</p>
+                </div>
+              )}
+
+              <div className="settings-footer-actions">
+                <button className="logout-button full-width" onClick={handleLogout}>
+                  {t('logout')}
+                </button>
+              </div>
             </div>
           </div>
         </div>

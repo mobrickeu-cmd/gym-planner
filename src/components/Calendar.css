@@ -15,31 +15,21 @@
 .month-navigation {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 20px;
+  position: relative;
 }
 
-.nav-button {
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
+.hidden-month-picker {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
-.nav-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
 
-.nav-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 
 .month-title {
   font-size: 2rem;
@@ -260,5 +250,30 @@
   .quick-month-btn {
     padding: 6px 12px;
     font-size: 0.8rem;
+  }
+
+  .quick-months {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* Make the middle button (current month) span both columns */
+  .quick-month-btn:nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .quick-month-btn {
+    padding: 10px 5px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    font-weight: 500;
   }
 }

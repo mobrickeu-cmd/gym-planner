@@ -136,3 +136,46 @@
     padding: 15px 20px;
   }
 }
+
+.settings-footer-actions {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #2d2d2d;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logout-button {
+  padding: 12px 24px;
+  background: #2d2d2d;
+  border: 2px solid #404040;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #ff4d4d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.logout-button:hover {
+  background: #ff4d4d;
+  color: white;
+  border-color: #ff4d4d;
+  box-shadow: 0 4px 12px rgba(255, 77, 77, 0.3);
+}
+
+.logout-button.full-width {
+  width: 100%;
+}
+
+.customer-settings-simple {
+  padding: 20px 0;
+  text-align: center;
+  color: #b0b0b0;
+}
+
+.settings-instruction {
+  font-style: italic;
+  font-size: 1.1rem;
+}

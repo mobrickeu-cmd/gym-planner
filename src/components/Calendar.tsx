@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useNotification } from '../context/NotificationContext';
@@ -38,33 +38,9 @@ const Calendar: React.FC = () => {
     return { year: minDate.getFullYear(), month: minDate.getMonth() };
   };
 
-  const minDate = getMinDate();
 
-  const handlePreviousMonth = () => {
-    if (currentMonth === 0) {
-      const newYear = currentYear - 1;
-      if (newYear > minDate.year || (newYear === minDate.year && 11 >= minDate.month)) {
-        setCurrentYear(newYear);
-        setCurrentMonth(11);
-      }
-    } else {
-      const newMonth = currentMonth - 1;
-      if (currentYear > minDate.year || (currentYear === minDate.year && newMonth >= minDate.month)) {
-        setCurrentMonth(newMonth);
-      }
-    }
-  };
 
-  const handleNextMonth = () => {
-    if (currentMonth === 11) {
-      if (currentYear < maxYear) {
-        setCurrentYear(currentYear + 1);
-        setCurrentMonth(0);
-      }
-    } else {
-      setCurrentMonth(currentMonth + 1);
-    }
-  };
+
 
   const handleMonthSelect = (year: number, month: number) => {
     if (isValidDateRange(year, month)) {
@@ -101,8 +77,8 @@ const Calendar: React.FC = () => {
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth();
 
-    // Previous 3 months
-    for (let i = 3; i >= 1; i--) {
+    // Previous 2 months
+    for (let i = 2; i >= 1; i--) {
       let year = currentYear;
       let month = currentMonth - i;
       if (month < 0) {
@@ -126,8 +102,8 @@ const Calendar: React.FC = () => {
       label: `${getMonthName(currentMonth, language)} ${currentYear} (${t('current')})`,
     });
 
-    // Next 3 months
-    for (let i = 1; i <= 3; i++) {
+    // Next 2 months
+    for (let i = 1; i <= 2; i++) {
       let year = currentYear;
       let month = currentMonth + i;
       if (month > 11) {
@@ -146,35 +122,22 @@ const Calendar: React.FC = () => {
     return options;
   };
 
-  const handleAnyMonthSelect = () => {
-    const minDate = getMinDate();
-    const yearPrompt = language === 'ro'
-      ? `Introduceți anul (${minDate.year}-${maxYear}):`
-      : `Enter year (${minDate.year}-${maxYear}):`;
-    const monthPrompt = language === 'ro'
-      ? 'Introduceți luna (1-12):'
-      : 'Enter month (1-12):';
-    const errorMsg = language === 'ro'
-      ? 'An sau lună invalidă. Vă rugăm să încercați din nou.'
-      : 'Invalid year or month. Please try again.';
+  const monthInputRef = useRef<HTMLInputElement>(null);
 
-    const yearInput = prompt(yearPrompt);
-    const monthInput = prompt(monthPrompt);
+  const handleMonthInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value; // YYYY-MM
+    if (value) {
+      const [year, month] = value.split('-').map(Number);
+      handleMonthSelect(year, month - 1);
+    }
+  };
 
-    if (yearInput && monthInput) {
-      const year = parseInt(yearInput);
-      const month = parseInt(monthInput) - 1;
-
-      if (
-        !isNaN(year) &&
-        !isNaN(month) &&
-        month >= 0 &&
-        month <= 11 &&
-        isValidDateRange(year, month)
-      ) {
-        handleMonthSelect(year, month);
-      } else {
-        showNotification(errorMsg, 'error');
+  const triggerMonthPicker = () => {
+    if (monthInputRef.current) {
+      try {
+        monthInputRef.current.showPicker();
+      } catch (e) {
+        monthInputRef.current.click();
       }
     }
   };
@@ -207,23 +170,18 @@ const Calendar: React.FC = () => {
     <div className="calendar-container">
       <div className="calendar-header">
         <div className="month-navigation">
-          <button
-            onClick={handlePreviousMonth}
-            disabled={currentYear === minDate.year && currentMonth === minDate.month}
-            className="nav-button"
-          >
-            ← {t('previous')}
-          </button>
-          <h2 className="month-title clickable" onClick={handleAnyMonthSelect} title={t('selectAnyMonth')}>
+          <h2 className="month-title clickable" onClick={triggerMonthPicker} title={t('selectAnyMonth')}>
             {getMonthYearString(currentYear, currentMonth, language)}
           </h2>
-          <button
-            onClick={handleNextMonth}
-            disabled={currentYear === maxYear && currentMonth === 11}
-            className="nav-button"
-          >
-            {t('next')} →
-          </button>
+          <input
+            ref={monthInputRef}
+            type="month"
+            className="hidden-month-picker"
+            onChange={handleMonthInputChange}
+            min={`${getMinDate().year}-${String(getMinDate().month + 1).padStart(2, '0')}`}
+            max={`${maxYear}-12`}
+            value={`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`}
+          />
         </div>
 
         <div className="month-selector">
