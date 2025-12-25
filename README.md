@@ -73,7 +73,7 @@ npm run dev
 
 - **React 18** with TypeScript
 - **Vite** for build tooling
-- **LocalStorage** for data persistence
+- **Google Cloud** with Supabase for data persistence
 - **CSS3** for styling with modern gradients and animations
 
 ## Project Structure
