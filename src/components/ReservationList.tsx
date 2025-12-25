@@ -32,28 +32,35 @@ const ReservationList: React.FC<ReservationListProps> = ({ date, onClose }) => {
             <p className="no-reservations">{t('noReservations')}</p>
           ) : (
             <div className="reservations-list">
-              {reservations.map((reservation) => (
-                <div key={reservation.id} className={`reservation-item ${currentCustomer && reservation.customerId === currentCustomer.id ? 'own-reservation' : ''}`}>
-                  <div className="reservation-time">{reservation.timeSlot}</div>
-                  <div className="reservation-customer">
-                    <strong>{reservation.customerName}</strong>
-                    {currentCustomer && reservation.customerId === currentCustomer.id && (
-                      <span className="own-badge"> ({t('yourBooking' as any)})</span>
-                    )}
-                    {userRole === 'trainer' && (
-                      <span className="reservation-id">ID: {reservation.customerId}</span>
-                    )}
-                  </div>
-                  {reservation.description && (
-                    <div className="reservation-description">
-                      <strong>{t('description')}:</strong> {reservation.description}
+              {reservations.map((reservation) => {
+                const isOwn = currentCustomer && reservation.customerId === currentCustomer.id;
+                const canSeeDetails = userRole === 'trainer' || isOwn;
+
+                return (
+                  <div key={reservation.id} className={`reservation-item ${isOwn ? 'own-reservation' : ''}`}>
+                    <div className="reservation-time">{reservation.timeSlot}</div>
+                    <div className="reservation-customer">
+                      <strong>{canSeeDetails ? reservation.customerName : t('reserved' as any)}</strong>
+                      {isOwn && (
+                        <span className="own-badge"> ({t('yourBooking' as any)})</span>
+                      )}
+                      {userRole === 'trainer' && (
+                        <span className="reservation-id">ID: {reservation.customerId}</span>
+                      )}
                     </div>
-                  )}
-                  <div className="reservation-date">
-                    {t('created')}: {new Date(reservation.createdAt).toLocaleString(language === 'ro' ? 'ro-RO' : 'en-US')}
+                    {reservation.description && canSeeDetails && (
+                      <div className="reservation-description">
+                        <strong>{t('description')}:</strong> {reservation.description}
+                      </div>
+                    )}
+                    {canSeeDetails && (
+                      <div className="reservation-date">
+                        {t('created')}: {new Date(reservation.createdAt).toLocaleString(language === 'ro' ? 'ro-RO' : 'en-US')}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

@@ -7,6 +7,8 @@ export interface Customer {
   weight: number;
   premium: boolean;
   sessions: number;
+  role?: 'trainer' | 'customer';
+  email?: string;
 }
 
 export interface Reservation {

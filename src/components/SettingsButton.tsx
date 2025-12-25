@@ -5,7 +5,7 @@ import TrainerSettings from './TrainerSettings';
 import './SettingsButton.css';
 
 const SettingsButton: React.FC = () => {
-  const { userRole, setUserRole } = useApp();
+  const { userRole, signOut } = useApp();
   const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -13,9 +13,9 @@ const SettingsButton: React.FC = () => {
     return null;
   }
 
-  const handleLogout = () => {
-    setUserRole(null);
-    window.location.reload();
+  const handleLogout = async () => {
+    await signOut();
+    setIsOpen(false);
   };
 
   return (

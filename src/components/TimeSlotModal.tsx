@@ -145,16 +145,26 @@ const TimeSlotModal: React.FC<TimeSlotModalProps> = ({ date, onClose }) => {
             })}
           </div>
 
-          {userRole === 'trainer' && selectedSlot && getExistingReservationsForSelectedSlot().length > 0 && (
+          {(userRole === 'trainer' || (userRole === 'customer' && getExistingReservationsForSelectedSlot().length > 0)) && selectedSlot && (
             <div className="existing-reservations">
               <h3 className="existing-reservations-title">{t('existingReservations')}</h3>
               <ul className="reservation-details-list">
-                {getExistingReservationsForSelectedSlot().map((res) => (
-                  <li key={res.id} className="reservation-detail-item">
-                    <span className="res-customer-name"><strong>{res.customerName}:</strong></span>
-                    <span className="res-description">{res.description || `(${t('noDescription')})`}</span>
-                  </li>
-                ))}
+                {getExistingReservationsForSelectedSlot().map((res) => {
+                  const isOwn = currentCustomer && res.customerId === currentCustomer.id;
+                  const canSeeDetails = userRole === 'trainer' || isOwn;
+
+                  return (
+                    <li key={res.id} className="reservation-detail-item">
+                      <span className="res-customer-name">
+                        <strong>{canSeeDetails ? res.customerName : t('reserved' as any)}:</strong>
+                      </span>
+                      <span className="res-description">
+                        {canSeeDetails ? (res.description || `(${t('noDescription')})`) : '***'}
+                      </span>
+                      {isOwn && <span className="own-badge">({t('yourBooking' as any)})</span>}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}

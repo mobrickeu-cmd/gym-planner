@@ -21,6 +21,7 @@ export interface Translations {
   bookings: string;
   booking: string;
   yourBooking: string;
+  reserved: string;
   availableSlots: string;
   monday: string;
   tuesday: string;
@@ -122,7 +123,8 @@ export const translations: Record<Language, Translations> = {
     current: 'Curent',
     bookings: 'rezervări',
     booking: 'rezervare',
-    yourBooking: 'rezervarea ta',
+    yourBooking: 'programarea ta',
+    reserved: 'Rezervat',
     availableSlots: 'liber',
     monday: 'Luni',
     tuesday: 'Marți',
@@ -213,6 +215,7 @@ export const translations: Record<Language, Translations> = {
     bookings: 'bookings',
     booking: 'booking',
     yourBooking: 'your booking',
+    reserved: 'Occupied',
     availableSlots: 'available',
     monday: 'Monday',
     tuesday: 'Tuesday',
